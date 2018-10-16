@@ -23,7 +23,7 @@ getIPinfo <- function(d, i, key){
     stop("Package \"utils\" needed for this function to work. Please install it.",
          call. = FALSE)
   }
-  message("* Consider storing the ipDF as an object to write as an external df, e.g.: write.csv(ipDF, 'ipDF.csv')")
+  message("* Consider storing the ipDF as an object to write as an external df, e.g., write.csv(ipDF, 'ipDF.csv')")
   ips <- unique(d[ ,i])
   options(stringsAsFactors = FALSE)
   url <- "http://v2.api.iphub.info/ip/"
@@ -36,8 +36,8 @@ getIPinfo <- function(d, i, key){
     utils::setTxtProgressBar(pb, i)
   }
   close(pb)
-  ipDF <- data.frame(ipDF)
   rownames(ipDF) <- NULL
+  ipDF <- data.frame(ipDF)
 
   return(ipDF)
 }
