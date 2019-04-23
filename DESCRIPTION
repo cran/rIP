@@ -1,24 +1,25 @@
 Package: rIP
 Type: Package
-Title: Detects Fraud in Online Surveys by Tracing and Scoring IP
-        Addresses
-Version: 0.1.1
+Title: Detects Fraud in Online Surveys by Tracing, Scoring, and
+        Visualizing IP Addresses
+Version: 1.1.1
 Authors@R: c(person("Ryan", "Kennedy", role = c("aut", "cre"), email = "rkennedy@uh.edu"),
              person("Philip", "Waggoner", role = "aut", email = "pdwaggoner@wm.edu"),
              person("Scott", "Clifford", role = "ctb"))
 Maintainer: Ryan Kennedy <rkennedy@uh.edu>
-Description: Takes as its input an array of IP addresses and the user's X-Key, passes these to <https://iphub.info/>, and returns a dataframe with the ip (used for merging), country code, country name, asn, isp, block, and hostname.
-    Especially important in this is the variable "block", which gives a score indicating whether the IP address is likely from a server farm and should be excluded from the data. It is codes 0 if the IP is residential/unclassified (i.e. safe IP), 1 if the IP is non-residential IP (hostping provider, proxy, etc. -- should likely be excluded), and 2 for non-residential and residential IPs (more stringent, may flag innocent respondents).
-    The recommendation from <https://iphub.info/> is to block or exclude those who score block = 1.
-Imports: httr, utils
+Description: Takes an array of IPs and the keys for the services the user wishes to use (IP Hub, IP Intel, and Proxycheck), 
+    and passes these to all respective APIs. Returns a dataframe with the IP addresses (used for merging), 
+    country, ISP, labels for non-US IP Addresses, VPS use, and recommendations for blocking. The package 
+    also provides optional visualization tools for checking the distributions.
+Imports: httr, utils, iptools, dplyr, graphics
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2018-10-10 19:13:58 UTC; bpwaggo
+Packaged: 2019-04-23 14:06:30 UTC; bpwaggo
 Author: Ryan Kennedy [aut, cre],
   Philip Waggoner [aut],
   Scott Clifford [ctb]
 Repository: CRAN
-Date/Publication: 2018-10-16 14:10:03 UTC
+Date/Publication: 2019-04-23 22:20:03 UTC

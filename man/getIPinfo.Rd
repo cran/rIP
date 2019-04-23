@@ -2,32 +2,42 @@
 % Please edit documentation in R/rIP.R
 \name{getIPinfo}
 \alias{getIPinfo}
-\title{Passes an array of IP addresses to iphub.info and returns a dataframe with details of IP}
+\title{Detects Fraud in Online Surveys by Tracing, Scoring, and Visualizing IP Addresses}
 \usage{
-getIPinfo(d, "i", "key")
+getIPinfo(d, "i", "iphub_key", "ipintel_key", "proxycheck_key", plots = TRUE)
 }
 \arguments{
 \item{d}{Data frame where IP addresses are stored}
 
 \item{i}{Name of the vector in data frame, d, corresponding to IP addresses in quotation marks}
 
-\item{key}{User's X-key in quotation marks}
+\item{iphub_key}{User's IP Hub X-key in quotation marks}
+
+\item{ipintel_key}{User's email address (used as key for getipintel.net) in quotation marks}
+
+\item{proxycheck_key}{User's API key for proxycheck.io in quotation marks}
+
+\item{plots}{Logical argument. If TRUE, produces a barplot of potentially suspicious IP addresses. Default is TRUE.}
 }
 \value{
 ipDF A dataframe with the IP address, country code, country name, asn, isp, block, and hostname.
 }
 \description{
-Makes a call to an IP address verification service (iphub.info) that returns the information on the IP address, including the internet service provider (ISP) and whether it is likely a server farm being used to disguise a respondent's location.
+Cleans and processes an array of IP address data and, using keys for several IP check services, passes these data to the needed APIs. Returns visual and numerical information on the IP address, including the internet service provider (ISP) and whether it is likely a server farm being used to disguise a respondent's location.
 }
 \details{
-Takes an array of IPs and the user's X-Key, and passes these to iphub.info. Returns a dataframe with the IP address (used for merging), country code, country name, asn, isp, block, and hostname.
+Takes an array of IPs and the keys for the services the user wishes to use (IP Hub, IP Intel, and Proxycheck), and passes these to all respective APIs. Returns a dataframe with the IP addresses (used for merging), country, ISP, labels for non-US IP Addresses, VPS use, and recommendations for blocking. The function also provides optional visualization tools for checking the distributions.
 }
 \note{
-Users must have an active iphub.info account with a valid X-key.
+Users must have active accounts and/or valid keys at iphub, ipintel, and/or proxycheck.
 }
 \examples{
-id <- c(1,2,3,4) # fake respondent id's
-ips <- c(123.232, 213.435, 234.764, 543.765) # fake ips
-data <- data.frame(id,ips)
-getIPinfo(data, "ips", "MzI3NDpJcVJKSTdIdXpQSUJLQVhZY1RvRxaXFsFW3jS3xcQ")
+\dontrun{
+ip_hub_key <- "MzI2MTpkOVpld3pZTVg1VmdTV3ZPenpzMmhopIMkRMZQ=="
+ipintel_key <- "useremailaddress"
+proxycheck_key <- "MzI2MTpkOVpld3pZTVg1VmdTV3ZPenpzMmhod"
+ipsample <- data.frame(rbind(c(1, "189.8.105.146"), c(2, "148.233.134.248")))
+names(ipsample) <- c("number", "IPAddress")
+getIPinfo(ipsample, "IPAddress", ip_hub_key, ipintel_key, proxycheck_key)
+}
 }
