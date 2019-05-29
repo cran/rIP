@@ -17,11 +17,10 @@ install.packages("rIP")
 library(rIP)
 ```
 
-Or the dev version directly from the MAHD lab GitHub repo (<https://github.com/MAHDLab/rIP>):
+Or the dev version directly from our GitHub repo:
 
 ```{R}
-library(devtools)
-install_github(MAHDLab/rIP)
+devtools::install_github(MAHDLab/rIP)
 library(rIP)
 ```
 
@@ -42,4 +41,4 @@ getIPinfo(ipsample, "IPAddress", iphub_key = ip_hub_key)
 
 ### Acknowledgements
 
-We thank Tyler Burleigh for his help on this tool. His method for incorporating this information into Qualtrics surveys can be found [here](https://twitter.com/tylerburleigh/status/1042528912511848448?s=19).
+We thank Tyler Burleigh for his help on this tool.
